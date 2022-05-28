@@ -5,9 +5,8 @@ WORKDIR /redoc
 
 RUN npm -g install redoc-cli
 COPY template.hbs ./
-RUN redoc-cli bundle https://oengus.io/api/v2/api-docs -t template.hbs
+RUN redoc-cli build https://oengus.io/api/v3/api-docs -t template.hbs
 RUN ls -hal
-
 
 
 # 2. serve html with nginx
