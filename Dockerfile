@@ -3,9 +3,8 @@
 FROM node:lts AS redoc
 WORKDIR /redoc
 
-RUN npm -g install redoc-cli
 COPY template.hbs ./
-RUN redoc-cli build https://oengus.io/api/v3/api-docs -t template.hbs
+RUN npx @redocly/cli build-docs https://oengus.io/api/v3/api-docs -t template.hbs
 RUN ls -hal
 
 
