@@ -5,6 +5,9 @@ name: Release Docs
 
 # allows us to manually update the docs
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -39,16 +42,8 @@ jobs:
           context: .
           push: true
           tags: oengusio/docs:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      # Temp fix
-      # https://github.com/docker/build-push-action/issues/252
-      # https://github.com/moby/buildkit/issues/1896
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          cache-from: type=gha
+          cache-to: type=gha
 
       - name: Trigger webhook
         uses: distributhor/workflow-webhook@v3
